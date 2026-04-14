@@ -5,7 +5,7 @@ from sklearn.preprocessing import RobustScaler
 def load_dataset(split="train"):
     split = lower(split)
     if split=="train":
-        df = pd.read_csv("../data/processed/train_ohe.csv")
+        df = pd.read_csv("../data/processed/train_ohe_1.csv")
     elif split =="test":
         df = pd.read_csv("../data/processed/test_ohe.csv")
     return df

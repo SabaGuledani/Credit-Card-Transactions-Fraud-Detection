@@ -20,3 +20,5 @@ but xgboost is safer for big datasets
 1254	xgboost_85	0.10	9	700	0.1	0.9	5	0.9	0.3	0.999299	0.957614	0.852099
 
 best set of results
+for test set
+roc_auc: 0.9983474779521921, precision recall score: 0.9239965370385764, best recall at 0.95 precision: 0.7883449883449883

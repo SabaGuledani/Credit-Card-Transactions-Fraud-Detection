@@ -17,7 +17,8 @@ def remove_unused_categories(df:pd.DataFrame)->pd.DataFrame:
                             "city_type",
                             "trans_num",	
                             "unix_time", 
-                            "merch_lat",	
+                            "merch_lat",
+                            "state",	
                             "merch_long", 
                             "date_of_birth", 
                             "age_group",
@@ -57,7 +58,7 @@ def prepare_data(filepath:str="../data/processed/cleeaned_fraud_train.csv", outp
         df = remove_unused_categories(df)
         df = encode_categoricals(df)
         df.to_csv(output_path,index=False)
-        return "data saved successfully"
+        return df
     except Exception as e:
         return f"Error: {e}"
 

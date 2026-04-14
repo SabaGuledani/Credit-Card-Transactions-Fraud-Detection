@@ -7,11 +7,15 @@ def get_probs(model, X_test):
     """
     Get the probabilities of the model for the test set
     """
-    try:
-        y_pred_prob = model.predict_proba(X_test)[:, 1]
-    except:
-        y_pred_prob = model.decision_function(X_test)
-    return y_pred_prob
+    if hasattr(model, "predict_proba"):
+        return model.predict_proba(X_test)[:, 1]
+
+    if hasattr(model, "decision_function"):
+        return model.decision_function(X_test)
+
+    raise AttributeError(
+        "Model does not implement predict_proba or decision_function."
+    )
 
 
 def get_best_recall(precision, recall, target_precision=0.9):
