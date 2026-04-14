@@ -16,4 +16,7 @@ roc_auc: 0.993237942470326, pr_auc: 0.9246769274524205, best_recall: 0.848101265
 
 
 but xgboost is safer for big datasets
+	model_name	eta	max_depth	n_estimators	gamma	subsample	min_child_weight	colsample_bytree	reg_alpha	roc_auc	pr_auc	best_recall
+1254	xgboost_85	0.10	9	700	0.1	0.9	5	0.9	0.3	0.999299	0.957614	0.852099
 
+best set of results
