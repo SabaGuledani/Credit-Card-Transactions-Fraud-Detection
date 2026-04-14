@@ -56,17 +56,17 @@ def draw_precision_recall_curve(y_test, y_pred_prob):
     plt.title("Precision-Recall Curve")
     plt.show()
 
-def print_scores(model, X_test,y_test, target_precision=0.9):
-    y_pred_prob = get_probs(model, X_test)
-    roc_auc = get_roc_auc(y_test, y_pred_prob)
-    pr_auc = get_average_precision(y_test, y_pred_prob)
-    precision, recall, thresholds = get_precision_recall_curve(y_test, y_pred_prob)
-    best_recall = get_best_recall(precision, recall, target_precision=0.9)
-    print(f"roc_auc: {roc_auc}, precision recall score: {pr_auc}, best recall at {target_precision} precision: {best_recall}")
-    return roc_auc, pr_auc, best_recall
-
 def draw_confusion_matrix(y_test,y_pred_prob, threshold=0.9):
     y_pred = (y_pred_prob >= threshold).astype(int)
     ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
     plt.show()
+
+def print_scores(y_test, y_pred_prob, target_precision=0.9):
+    roc_auc = get_roc_auc(y_test, y_pred_prob)
+    pr_auc = get_average_precision(y_test, y_pred_prob)
+    precision, recall, thresholds = get_precision_recall_curve(y_test, y_pred_prob)
+    best_recall = get_best_recall(precision, recall, target_precision=target_precision)
+    print(f"roc_auc: {roc_auc}, precision recall score: {pr_auc}, best recall at {target_precision} precision: {best_recall}")
+    return roc_auc, pr_auc, best_recall
+
 
