@@ -91,16 +91,67 @@ I selected these metrics because they are easy to explain to non-technical stake
 
 From these results, I can see that fraud is not only a rare-event problem. Even with a low fraud count, the financial impact is important, and risk differs clearly across segments.
 
-## 6) Machine Learning Section (In Progress)
+## 6) Machine Learning Results and Model Comparison
 
-I also started model experiments (Random Forest and XGBoost), but this part is not final yet.
+After finishing analytics, I trained and compared multiple models for fraud detection on imbalanced data.
 
-Current progress:
-- I trained initial models.
-- I started tuning and comparison.
-- I am still configuring thresholds and evaluation for imbalanced data.
+I evaluated models with:
+- ROC-AUC
+- PR-AUC
+- recall at high precision (I tracked best recall around precision 0.95)
 
-I will complete this section after I finish model validation and final interpretation.
+### Logistic Regression (baseline)
+
+Model:
+- `LogisticRegression(C=0.01, class_weight="balanced", max_iter=1000, random_state=4)`
+
+Results:
+- ROC-AUC: **0.9238**
+- PR-AUC: **0.2306**
+- Best recall: **0.0000**
+
+Conclusion:
+- I used this as a baseline, but it was not good enough for fraud capture in this setup.
+
+### Random Forest
+
+Results:
+- ROC-AUC: **0.9932**
+- PR-AUC: **0.9247**
+- Best recall: **0.8481**
+
+Classification report highlights:
+- Fraud class (`1`) precision: **0.98**
+- Fraud class (`1`) recall: **0.73**
+- Fraud class (`1`) F1-score: **0.83**
+
+Conclusion:
+- Random Forest performed much better than Logistic Regression and gave strong fraud detection performance.
+
+### XGBoost (final best model)
+
+Best tuned configuration from my search:
+- `eta=0.10`
+- `max_depth=9`
+- `n_estimators=700`
+- `gamma=0.1`
+- `subsample=0.9`
+- `min_child_weight=5`
+- `colsample_bytree=0.9`
+- `reg_alpha=0.3`
+
+Best model validation metrics:
+- ROC-AUC: **0.9993**
+- PR-AUC: **0.9576**
+- Best recall: **0.8521**
+
+Test set metrics:
+- ROC-AUC: **0.9983**
+- PR-AUC (average precision): **0.9240**
+- Best recall at 0.95 precision: **0.7883**
+
+Conclusion:
+- XGBoost gave my best overall results and is safer for large datasets, so this is my selected model for the project.
 
 ## 7) Project Files
 
@@ -115,4 +166,4 @@ I will complete this section after I finish model validation and final interpret
 1. Open the project in Jupyter Notebook or VS Code.
 2. Run `notebooks/data_load.ipynb` to create the processed data file.
 3. Run `notebooks/core_business_metrics.ipynb` to reproduce KPI and segment risk outputs.
-4. Run modeling notebooks if you want to see the ML work-in-progress.
+4. Run `notebooks/model_training.ipynb`, `notebooks/tree_model.ipynb`, and `notebooks/xgboost.ipynb` to reproduce ML training and comparison.
